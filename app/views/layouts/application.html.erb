@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+     <title>Room Booking Hotel</title>
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- plugin css for this page - custom style sheet by me -->
+ <link rel="stylesheet" href="~/assets/stylesheets/custom_style.css">
+  <!-- End plugin css for this page -->
+  
+   <!-- plugin css for data-table - custom style sheet by me -->
+ <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+  <!-- End plugin css for this page -->
+
+
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="~/assets/stylesheets/style.css">
+  <link rel="stylesheet" href="~/assets/stylesheets/maps/style.css.map">
+  <!-- endinject -->
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="~/assets/stylesheets/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="~/assets/images/favicon.png" />
+  
+    <!-- Bootstrap CSS -->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+</head>
+<body>
+ 
+
+ 
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="/home/index"><%= image_tag("logo.svg")  %></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <div class="search-field ml-4 d-none d-md-block">
+          <form class="d-flex align-items-stretch h-100" action="#">
+            <div class="input-group">
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search">
+              <div class="input-group-btn">
+                <button type="button" class="btn bg-transparent dropdown-toggle px-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="mdi mdi-earth"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#">Today</a>
+                  <a class="dropdown-item" href="#">This week</a>
+                  <a class="dropdown-item" href="#">This month</a>
+                  <div role="separator" class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Month and older</a>
+                </div>
+              </div>
+              <div class="input-group-addon bg-transparent border-0 search-button">
+                <button type="submit" class="btn btn-sm bg-transparent px-0">
+                  <i class="mdi mdi-magnify"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav navbar-nav-right">
+            <% if user_signed_in?%>
+                <li class="nav-item d-none d-lg-block full-screen-link">
+                    <%= link_to "Sign-Out", destroy_user_session_path, method: :delete, class:"nav-link" %>
+                </li>
+                <li class="nav-item d-none d-lg-block full-screen-link">
+                    <%=link_to "Edit Profile", edit_user_registration_path, class:"nav-link" %>
+                </li>
+              <% else %>
+                <li class="nav-item d-none d-lg-block full-screen-link">
+                    <%= link_to "Login", new_user_session_path, class:"nav-link" %>
+                </li>
+                  <li class="nav-item d-none d-lg-block full-screen-link">
+                    <%= link_to "Sign Up", new_user_registration_path, class:"nav-link" %>
+                </li>
+            <% end %>
+        <li class="nav-item d-none d-lg-block full-screen-link">
+             <a class="nav-link" aria-current="page" href="#" ></a>
+        </li>
+    </nav>
+    <!-- partial -->
+     <!-- test ------------------------------------------------------------------------------------- -->
+     
+     <% if user_signed_in? %>
+    <div class="container-fluid page-body-wrapper">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+           <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="/home/index" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">DashBoard</span>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="/home/about" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">About Us</span>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/rooms">
+                <span class="menu-title">Rooms</span>
+              </a>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'Types & Facilities', types_facilities_path, class:"nav-link menu-title float-left" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'Bookings', time_tables_path, class:"nav-link menu-title float-left" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'Payments', controllers_path, class:"nav-link menu-title float-left" %>
+            </li>
+           <li class="nav-item">
+                <%= link_to 'Price Bands', bands_prices_path, class:"nav-link menu-title float-left" %>
+            </li>
+          </ul>
+          <div class="sidebar-progress">
+            <p>Total Sales</p>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p>50 Items sold</p>
+          </div>
+          <div class="sidebar-progress">
+            <p>Customer Target</p>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p>200 Items sold</p>
+          </div>
+        </nav>
+        <% end %>
+        
+           <!-- end of test ------------------------------------------------------------------------------------- -->
+        
+        <!-- ___________________ partial ___________________ -->
+      
+      
+               
+               
+    <div class="container">
+       <br>
+        <div class="row d-sm-flex justify-content-center justify-content-sm-between">
+            <div class="col-lg-2 text-muted text-center text-sm-left d-block d-sm-inline-block">
+               
+            </div>
+            
+            <div class="col-lg-10 text-muted text-center text-sm-left d-block d-sm-inline-block p-4">
+                    <% if notice %>
+                        <%= render "layouts/alerts" %>
+                    <% end %>
+            </div>
+        </div>
+        
+        <div class="row d-sm-flex justify-content-center justify-content-sm-between">
+            <div class="col-lg-2 text-muted text-center text-sm-left d-block d-sm-inline-block">
+               
+            </div>
+            
+             <!-- _________________________________Yield Part _________________________________ -->
+             
+             
+            <div class="col-lg-10 text-muted text-center text-sm-left d-block d-sm-inline-block">
+                <%= yield %>
+            </div>
+        </div>
+        
+    </div>
+            
+            
+        
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © Shiccorama <a href="https://github.com/shiccorama" target="_blank">My Github Profile</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Made with RubyOnRails v.6.1.4 <i class="mdi mdi-heart text-danger"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- row-offcanvas ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="~/javascript/jquery/dist/jquery.min.js"></script>
+ <!-- Option 2: Separate Popper and Bootstrap JS -->
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+   
+  <script src="~/javascript/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script type="text/javascript" src="~/javascript/chart.js/dist/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  
+   <!-- Plugin js for data-table -->
+  <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<!--  plugin for jquery-->
+    <script>
+             $(document).ready( function () {
+                $('#myTable').DataTable();
+            } );
+    </script>
+  <!-- End plugin js for this page-->
+  
+  
+  <!-- inject:js -->
+  <script src="~/javascript/js/off-canvas.js"></script>
+  <script src="~/javascript/js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="~/javascript/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>

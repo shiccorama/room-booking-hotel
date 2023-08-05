@@ -1,0 +1,79 @@
+<%= form_with(model: controller) do |form| %>
+  <% if controller.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(controller.errors.count, "error") %> prohibited this controller from being saved:</h2>
+
+      <ul>
+        <% controller.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :payments %>
+    <%= form.text_field :payments %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer %>
+    <%= form.text_field :customer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cash %>
+    <%= form.check_box :cash %>
+  </div>
+
+  <div class="field">
+    <%= form.label :visa %>
+    <%= form.check_box :visa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :card_number %>
+    <%= form.text_field :card_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :business_trip %>
+    <%= form.check_box :business_trip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :leisure_trip %>
+    <%= form.text_field :leisure_trip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :boolean %>
+    <%= form.text_field :boolean %>
+  </div>
+  
+  <div class="field form-group">
+    <%= form.label :time_table_id, type: :hidden %>
+    <%= form.text_field :time_table_id, class:"form-control", value:current_user.id, id: :time_table_id, type: :hidden %>
+  </div>
+<!--  to check the current user details, use .inspect-->
+<!--  <%= current_user.inspect%>-->
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

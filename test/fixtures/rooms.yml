@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  single: 1
+  double: 1
+  triple: 1
+  suite: 1
+
+two:
+  id: 1
+  single: 1
+  double: 1
+  triple: 1
+  suite: 1

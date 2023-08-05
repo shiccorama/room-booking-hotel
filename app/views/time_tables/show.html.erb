@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bookingdate:</strong>
+  <%= @time_table.bookingDate %>
+</p>
+
+<p>
+  <strong>Bookingtime:</strong>
+  <%= @time_table.bookingTime %>
+</p>
+
+<p>
+  <strong>Startdate:</strong>
+  <%= @time_table.startDate %>
+</p>
+
+<p>
+  <strong>Enddate:</strong>
+  <%= @time_table.endDate %>
+</p>
+
+<p>
+  <strong>Totalpayment:</strong>
+  <%= @time_table.totalPayment %>
+</p>
+
+<%= link_to 'Edit', edit_time_table_path(@time_table) %> |
+<%= link_to 'Back', time_tables_path %>

@@ -1,0 +1,53 @@
+<br>
+<table class="table table-dark">
+        <thead>
+              <tr>
+                <th>
+             <strong>Id</strong>
+                </th>
+                <th>
+              <strong>Single</strong>
+                </th>
+                <th>
+              <strong>Double</strong>
+                </th>
+                <th>
+            <strong>Trible</strong>
+                </th>
+                <th>
+            <strong>Suite</strong>
+                </th>
+              </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td>
+                 <%= @room.id %>
+                </td>
+                <td>
+                <%= @room.single %>
+                </td>
+                <td>
+                <%= @room.double %>
+                </td>
+                <td>
+                 <%= @room.triple %>
+                </td>
+                  <td>
+                 <%= @room.suite %>
+                </td>
+              </tr>
+        </tbody>
+</table>
+
+<br><br>
+
+
+
+<%= link_to 'Edit', edit_room_path(@room), class:"btn btn-warning" %> 
+
+<%= link_to 'Back', rooms_path, class:"btn btn-secondary" %>
+
+<br><br>
+
+

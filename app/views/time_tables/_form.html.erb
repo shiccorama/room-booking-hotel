@@ -1,0 +1,42 @@
+<%= form_with(model: time_table) do |form| %>
+  <% if time_table.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(time_table.errors.count, "error") %> prohibited this time_table from being saved:</h2>
+
+      <ul>
+        <% time_table.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :bookingDate %>
+    <%= form.date_select :bookingDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bookingTime %>
+    <%= form.time_select :bookingTime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :startDate %>
+    <%= form.date_select :startDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :endDate %>
+    <%= form.date_select :endDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :totalPayment %>
+    <%= form.text_field :totalPayment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
